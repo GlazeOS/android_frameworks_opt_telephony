@@ -1371,4 +1371,14 @@ public class SimulatedCommandsVerifier implements CommandsInterface {
     @Override
     public void unregisterForPcoData(Handler h) {
     }
+
+    @Override
+    public void iccOpenLogicalChannel(String AID, byte p2, Message response) {
+
+    }
+
+    @Override
+    public void getAtr(Message response) {
+
+    }
 }
