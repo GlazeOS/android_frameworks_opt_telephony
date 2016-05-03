@@ -417,11 +417,9 @@ public class SubscriptionInfoUpdater extends Handler {
         }
 
         if (SubscriptionManager.isValidSubscriptionId(subId)) {
-            TelephonyManager tm = TelephonyManager.getDefault();
+            String operator = mPhone[slotId].getOperatorNumeric();
 
-            String operator = tm.getSimOperatorNumericForPhone(slotId);
-
-            if (!TextUtils.isEmpty(operator)) {
+            if (operator != null && !TextUtils.isEmpty(operator)) {
                 if (subId == SubscriptionController.getInstance().getDefaultSubId()) {
                     MccTable.updateMccMncConfiguration(mContext, operator, false);
                 }
@@ -429,6 +427,7 @@ public class SubscriptionInfoUpdater extends Handler {
             } else {
                 logd("EVENT_RECORDS_LOADED Operator name is null");
             }
+            TelephonyManager tm = TelephonyManager.getDefault();
 
             String msisdn = tm.getLine1Number(subId);
             ContentResolver contentResolver = mContext.getContentResolver();
