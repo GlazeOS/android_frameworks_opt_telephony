@@ -26,6 +26,7 @@ import com.android.internal.telephony.UUSInfo;
 import com.android.internal.telephony.cdma.CdmaSmsBroadcastConfigInfo;
 import com.android.internal.telephony.dataconnection.DataProfile;
 import com.android.internal.telephony.gsm.SmsBroadcastConfigInfo;
+import com.android.internal.telephony.uicc.SimPhoneBookAdnRecord;
 
 import java.util.List;
 
@@ -1381,4 +1382,33 @@ public class SimulatedCommandsVerifier implements CommandsInterface {
     public void getAtr(Message response) {
 
     }
+
+    @Override
+    public void getAdnRecord(Message result){
+
+    }
+
+    @Override
+    public void updateAdnRecord(SimPhoneBookAdnRecord adnRecordInfo, Message result){
+
+    }
+
+    @Override
+    public void registerForAdnInitDone(Handler h, int what, Object obj){
+
+    }
+
+    @Override
+    public void unregisterForAdnInitDone(Handler h){
+
+    }
+
+    public void registerForAdnRecordsInfo(Handler h, int what, Object obj){
+
+    }
+
+    public void unregisterForAdnRecordsInfo(Handler h){
+
+    }
+
 }
