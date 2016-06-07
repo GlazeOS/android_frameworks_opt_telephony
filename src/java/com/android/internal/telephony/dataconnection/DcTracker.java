@@ -75,6 +75,7 @@ import android.telephony.CarrierConfigManager;
 
 import com.android.internal.R;
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.internal.telephony.PhoneFactory;
 import com.android.internal.telephony.DctConstants;
 import com.android.internal.telephony.EventLogTags;
 import com.android.internal.telephony.GsmCdmaPhone;
@@ -4694,7 +4695,7 @@ public class DcTracker extends Handler {
             mSentSinceLastRecv = 0;
             putRecoveryAction(RecoveryAction.GET_DATA_CALL_LIST);
         } else if (sent > 0 && received == 0) {
-            if (mPhone.getState() == PhoneConstants.State.IDLE) {
+            if (isPhoneStateIdle()) {
                 mSentSinceLastRecv += sent;
             } else {
                 mSentSinceLastRecv = 0;
@@ -4710,6 +4711,17 @@ public class DcTracker extends Handler {
         } else {
             if (VDBG_STALL) log("updateDataStallInfo: NONE");
         }
+    }
+
+    private boolean isPhoneStateIdle() {
+        for (int i = 0; i < TelephonyManager.getDefault().getPhoneCount(); i++ ) {
+            Phone phone = PhoneFactory.getPhone(i);
+            if (phone != null && phone.getState() != PhoneConstants.State.IDLE) {
+                log("isPhoneStateIdle: Voice call active on sub: " + i);
+                return false;
+            }
+        }
+        return true;
     }
 
     private void onDataStallAlarm(int tag) {
