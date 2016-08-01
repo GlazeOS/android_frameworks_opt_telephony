@@ -540,7 +540,7 @@ public class DcTracker extends Handler {
     // member variables
     protected final Phone mPhone;
     private final UiccController mUiccController;
-    private final AtomicReference<IccRecords> mIccRecords = new AtomicReference<IccRecords>();
+    protected final AtomicReference<IccRecords> mIccRecords = new AtomicReference<IccRecords>();
     private DctConstants.Activity mActivity = DctConstants.Activity.NONE;
     protected DctConstants.State mState = DctConstants.State.IDLE;
     private final Handler mDataConnectionTracker;
@@ -1347,7 +1347,7 @@ public class DcTracker extends Handler {
         setupDataOnConnectableApns(Phone.REASON_DATA_ATTACHED);
     }
 
-    private boolean isNvSubscription() {
+    protected boolean isNvSubscription() {
         int cdmaSubscriptionSource = CdmaSubscriptionSourceManager.getDefault(mPhone.getContext());
         if (cdmaSubscriptionSource ==
                 CdmaSubscriptionSourceManager.SUBSCRIPTION_FROM_NV) {
